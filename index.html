@@ -68,7 +68,7 @@
       width: 180px;
       height: 180px;
       transform: translate(-50%, -50%);
-    background-image: url('d7e65c97-56b1-4544-b970-c435b91ba2a2.jpg') ; /* replace with your photo URL */
+      background-image: url('d7e65c97-56b1-4544-b970-c435b91ba2a2.jpg') ; /* replace with your photo URL */
       background-size: cover;
       background-position: center;
       border-radius: 16px;
@@ -94,10 +94,20 @@
          0  0  6px rgba(255,255,255,0.9);
     }
 
+    h3 {
+      color: #ff4d6d;
+      text-shadow:
+        -1px -1px 0 #e4c01f,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff,
+         0  0  6px rgba(255,255,255,0.9);
+    }
+
     .btn-container {
       display: flex;
       justify-content: center;
-      gap: 5rem;
+      gap: 2rem;
       margin-top: 16rem;
     }
 
@@ -130,9 +140,21 @@
     }
     
     .love-message {
-      font-size: 1.2rem;
+      font-size: 0.8rem;
       font-weight: bold;
       color: #ff4d6d;
+      text-shadow:
+        -1px -1px 0 #e4c01f,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff,
+         0  0  6px rgba(255,255,255,0.9);
+    }
+    .love-message2 {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #ff4d6d;
+      text-align: left
     }
 
     @media (max-width: 400px) {
@@ -150,11 +172,12 @@
         font-size: 1.2rem;
       }
     }
+
     @media (max-width: 500px) {
     .container {
         padding-left: 1.5rem;  /* add some space on the left */
         padding-right: 1.5rem; /* add some space on the right */
-    }
+        }
     }
   </style>
 </head>
@@ -214,17 +237,16 @@
     });
 
     yesBtn.addEventListener('click', () => {
-      container.innerHTML = `<div class="love-message">I love you deeply, my Labb. See you soon! 💖</div><br><br><div class="love-message">Love is better when shared over good food ❤️
-
-Join us this Valentine’s Day weekend and enjoy our special set for only ₱2,980 with a FREE Panarasa Maki.
-
-For bookings and inquiries:
-📞 0956 648 6161 / 0949 805 2696
-📍KM 48 Emilio Aguinaldo Highway, cor, 2 Balubad 2nd Rd, Lalaan 1, Silang, Cavite
-
-#panarasarestaurant #panarasa #atasteofeverything #cavite
-Love is better when shared over good food ❤️
-</div>`;
+      container.innerHTML = `<div class="love-message"><h3>+1 for Feb 13, an early Valentine’s celeb? Already Yours 😘</h3> </div><div class="love-message2">
+      <span>Who: Just you & me ❤️</span><br><br>
+      <span>When: Friday, Feb 13, 8:00 PM (I’ll pick you up around 7 PM)</span><br><br>
+      <span>Where: Tagaytay</span><br><br>
+      <span>Dress: Smart casual, comfy yet polished, something that makes you feel amazing❤️</span><br><br>
+      <span>Plan: A cozy dinner with my love 🍰 </span><br><br>     
+      </div>
+      <br><div class="love-message">
+      Can’t wait to celebrate us a little early 😉💖 I love you, LaLabb. See you! 💖
+      </div>`;
     });
 
 
