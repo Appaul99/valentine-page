@@ -17,10 +17,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-       /* Cute wallpaper background */
+      /* Cute wallpaper background */
       background: url("collection-red-decorative-hearts.jpg") no-repeat center center/cover;
-       
-      /* optional overlay for readability */
       position: relative;
     }
 
@@ -68,7 +66,7 @@
       width: 180px;
       height: 180px;
       transform: translate(-50%, -50%);
-    background-image: url('d7e65c97-56b1-4544-b970-c435b91ba2a2.jpg') ; /* replace with your photo URL */
+      background-image: url('d7e65c97-56b1-4544-b970-c435b91ba2a2.jpg'); /* replace with your photo URL */
       background-size: cover;
       background-position: center;
       border-radius: 16px;
@@ -123,6 +121,7 @@
     #noBtn {
       background-color: #2e3135;
       color: #ffffff;
+      touch-action: none; /* ensure mobile taps register correctly */
     }
 
     #noBtn:hover {
@@ -137,15 +136,11 @@
       text-decoration: underline;
       cursor: default;
     }
-    
+
     .love-message {
       font-size: 1.2rem;
       font-weight: bold;
       color: #ff4d6d;
-    }
-    
-    #noBtn {
-        touch-action: none; /* ensure mobile taps register correctly */
     }
 
     @media (max-width: 400px) {
@@ -161,6 +156,11 @@
 
       h1 {
         font-size: 1.2rem;
+      }
+
+      .btn-container {
+        gap: 2rem;
+        margin-top: 14rem;
       }
     }
   </style>
@@ -190,7 +190,7 @@
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
-
+    const container = document.getElementById('container');
 
     const messages = [
       "Huwag naman",
@@ -207,31 +207,25 @@
     ];
 
     let noHoverCount = 0;
+
     function moveNoButtonRandomly() {
-  const rect = noBtn.getBoundingClientRect();
-  const maxX = window.innerWidth - rect.width;
-  const maxY = window.innerHeight - rect.height;
+      const rect = noBtn.getBoundingClientRect();
+      const maxX = window.innerWidth - rect.width;
+      const maxY = window.innerHeight - rect.height;
 
-  noBtn.style.position = 'absolute'; // ABSOLUTE instead of fixed
-  noBtn.style.left = Math.random() * maxX + 'px';
-  noBtn.style.top = Math.random() * maxY + 'px';
-  noBtn.style.transform = 'none'; // reset transform for mobile touch
-}
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = Math.random() * maxX + 'px';
+      noBtn.style.top = Math.random() * maxY + 'px';
+      noBtn.style.transform = 'none';
+    }
 
-// Desktop hover
-noBtn.addEventListener('mouseenter', () => {
-  noBtn.textContent = messages[noHoverCount % messages.length];
-  noHoverCount++;
-  moveNoButtonRandomly();
-});
-
-// Mobile tap
-noBtn.addEventListener('touchstart', (e) => {
-  e.preventDefault(); // prevent scrolling
-  noBtn.textContent = messages[noHoverCount % messages.length];
-  noHoverCount++;
-  moveNoButtonRandomly();
-});
+    // Unified pointer event works for both desktop hover and mobile tap
+    noBtn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      noBtn.textContent = messages[noHoverCount % messages.length];
+      noHoverCount++;
+      moveNoButtonRandomly();
+    });
 
     yesBtn.addEventListener('click', () => {
       container.innerHTML = `<div class="love-message">I love you deeply, my Labb. See you soon! 💖</div><br><br><div class="love-message">Love is better when shared over good food ❤️
