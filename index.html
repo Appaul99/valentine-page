@@ -171,7 +171,7 @@
       <div class="photo-bg"></div>
 
       <h1>
-        Will you be my Valentine, forever and always?🤞💖
+        Will yofsafsau be my Valentine, forever and always?🤞💖
       </h1>
 
       <div class="btn-container">
@@ -232,31 +232,37 @@ Love is better when shared over good food ❤️
     });
 
 
-    // Mobile tap fix
-noBtn.addEventListener('touchstart', (e) => {
-  e.preventDefault(); // prevent scrolling
+    // Unified NO button movement for desktop hover & mobile tap
+function moveNoButton() {
+  const rect = noBtn.getBoundingClientRect();
+  const padding = 10; // minimal distance from screen edges
+  const maxX = window.innerWidth - rect.width - padding;
+  const maxY = window.innerHeight - rect.height - padding;
+
+  const randomX = padding + Math.random() * maxX;
+  const randomY = padding + Math.random() * maxY;
+
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = randomX + 'px';
+  noBtn.style.top = randomY + 'px';
+  noBtn.style.transform = 'none';
+}
+
+// Desktop hover
+noBtn.addEventListener('mouseenter', () => {
   noBtn.textContent = messages[noHoverCount % messages.length];
   noHoverCount++;
+  moveNoButton();
+});
 
-  // Move NO button safely on mobile
-  requestAnimationFrame(() => {
-    const rect = noBtn.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+// Mobile tap
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  noBtn.textContent = messages[noHoverCount % messages.length];
+  noHoverCount++;
+  moveNoButton();
+});
 
-    // keep the button fully inside viewport
-    const maxX = viewportWidth - rect.width;
-    const maxY = viewportHeight - rect.height;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    noBtn.style.position = 'fixed'; // important: fixed relative to viewport
-    noBtn.style.left = randomX + 'px';
-    noBtn.style.top = randomY + 'px';
-    noBtn.style.transform = 'none'; // reset previous translate
-  });
-})
   </script>
 
 </body>
