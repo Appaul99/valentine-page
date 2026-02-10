@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Be my valentine, Lab 💘</title>
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/black/svg/heart.svg" type="image/svg+xml">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(150deg, #fad0c4, #d8474c);
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 2rem 4rem;
+      max-width: 360px;
+      width: 90vw;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      user-select: none;
+      z-index: 10;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 1.8rem;
+      font-size: 1.4rem;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 9999px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      z-index: 20;
+    }
+
+    #yesBtn:hover {
+      background-color: #e64257;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+      z-index: 20;
+    }
+
+    #noBtn:hover {
+      background-color: #bbb;
+    }
+
+    .love-message {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff4d6d;
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 0.65rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <h1>My love won’t resign, you’re always mine, will you be my Valentine? 💘</h1>
+    <div class="btn-container">
+      <button id="yesBtn">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const container = document.getElementById('container');
+
+    const messages = [
+      "Huwag naman",
+      "Palihug 🥺",
+      "Yamette!",
+      "Mahal ko?",
+      "🙄",
+      "Labb??",
+      "Giatay",
+      "Just say yes, Lab",
+      "🥺",
+      "Lab, pleaseeee"
+    ];
+
+    let noHoverCount = 0;
+
+    // Move NO button randomly within the viewport
+    function moveNoButtonRandomly() {
+      const btnRect = noBtn.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      const maxX = viewportWidth - btnRect.width;
+      const maxY = viewportHeight - btnRect.height;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.position = 'fixed'; // switch to fixed after first hover
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+    }
+
+    noBtn.addEventListener('mouseenter', () => {
+      // Change text to next message and keep it
+      noBtn.textContent = messages[noHoverCount % messages.length];
+      noHoverCount++;
+
+      moveNoButtonRandomly();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      container.innerHTML = `<div class="love-message">I love you deeply, my Labb. See you soon! 💖</div><br><br><div class="love-message">Love is better when shared over good food ❤️
+
+Join us this Valentine’s Day weekend and enjoy our special set for only ₱2,980 with a FREE Panarasa Maki.
+
+For bookings and inquiries:
+📞 0956 648 6161 / 0949 805 2696
+📍KM 48 Emilio Aguinaldo Highway, cor, 2 Balubad 2nd Rd, Lalaan 1, Silang, Cavite
+
+#panarasarestaurant #panarasa #atasteofeverything #cavite
+Love is better when shared over good food ❤️
+</div>`;
+    });
+
+    // Keep NO button inside viewport on resize
+    window.addEventListener('resize', () => {
+      const btnRect = noBtn.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      let left = parseInt(noBtn.style.left, 10) || 0;
+      let top = parseInt(noBtn.style.top, 10) || 0;
+
+      if (left + btnRect.width > viewportWidth) {
+        noBtn.style.left = (viewportWidth - btnRect.width) + 'px';
+      }
+      if (top + btnRect.height > viewportHeight) {
+        noBtn.style.top = (viewportHeight - btnRect.height) + 'px';
+      }
+    });
+  </script>
+</body>
+</html>
