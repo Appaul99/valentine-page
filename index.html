@@ -211,10 +211,19 @@
       noBtn.style.top = Math.random() * (window.innerHeight - rect.height) + 'px';
     }
 
+    // Desktop hover
     noBtn.addEventListener('mouseenter', () => {
       noBtn.textContent = messages[noHoverCount % messages.length];
       noHoverCount++;
       moveNoButtonRandomly();
+    });
+
+    // Mobile tap
+    noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // prevent first tap from also triggering click
+    noBtn.textContent = messages[noHoverCount % messages.length];
+    noHoverCount++;
+    moveNoButtonRandomly();
     });
 
     yesBtn.addEventListener('click', () => {
