@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Be my valentine, Lab 💘</title>
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/black/svg/heart.svg" type="image/svg+xml">
+  <link rel="icon" href="istockphoto-1790851547-612x612.jpg" type="image/svg+xml">
 
   <style>
     body {
@@ -17,13 +17,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
+       /* Cute wallpaper background */
+      background: url("collection-red-decorative-hearts.jpg") no-repeat center center/cover;
+       
+      /* optional overlay for readability */
+      position: relative;
+    }
+
+    /* Wrapper so heart can align with container */
+    .wrapper {
+      position: relative;
     }
 
     .container {
       position: relative;
       background: white;
       border-radius: 20px;
-      padding: 2rem 2rem 4rem;
+      padding: 2rem 2rem 2rem;
       max-width: 360px;
       width: 90vw;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -32,18 +42,63 @@
       z-index: 10;
     }
 
+    /* HEART ON TOP OF CONTAINER */
+    .floating-heart {
+      position: absolute;
+      top: -50px;                 /* sits above container */
+      left: 50%;
+      transform: translateX(-50%) rotate(-10deg);
+      font-size: 4rem;
+      z-index: 20;
+      animation: beat-tilt 1s infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes beat-tilt {
+      0%   { transform: translateX(-50%) scale(1) rotate(-10deg); }
+      50%  { transform: translateX(-50%) scale(1.1) rotate(10deg); }
+      100% { transform: translateX(-50%) scale(1.2) rotate(-10deg); }
+    }
+
+    /* Center photo inside container */
+    .photo-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 180px;
+      height: 180px;
+      transform: translate(-50%, -50%);
+    background-image: url('d7e65c97-56b1-4544-b970-c435b91ba2a2.jpg') ; /* replace with your photo URL */
+      background-size: cover;
+      background-position: center;
+      border-radius: 16px;
+      opacity: 0.70;
+      z-index: 1;
+    }
+
+    /* Keep content above photo */
+    .container > *:not(.photo-bg) {
+      position: relative;
+      z-index: 5;
+    }
+
     h1 {
       color: #ff4d6d;
-      margin-bottom: 1.8rem;
-      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      text-shadow:
+        -1px -1px 0 #e4c01f,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff,
+         0  0  6px rgba(255,255,255,0.9);
     }
 
     .btn-container {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-      position: relative;
+      gap: 5rem;
+      margin-top: 16rem;
     }
 
     button {
@@ -52,31 +107,37 @@
       border-radius: 9999px;
       font-size: 1.1rem;
       cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      position: relative;
+      transition: all 0.3s ease;
     }
 
     #yesBtn {
       background-color: #ff4d6d;
       color: white;
-      z-index: 20;
     }
 
     #yesBtn:hover {
       background-color: #e64257;
+      transform: scale(1.1);
     }
 
     #noBtn {
-      background-color: #ccc;
-      color: #333;
-      z-index: 20;
+      background-color: #2e3135;
+      color: #ffffff;
     }
 
     #noBtn:hover {
       background-color: #bbb;
     }
 
+    .hint {
+      display: block;
+      margin-top: 1.75rem;
+      color: #001aff;
+      font-size: 0.85rem;
+      text-decoration: underline;
+      cursor: default;
+    }
+    
     .love-message {
       font-size: 1.2rem;
       font-weight: bold;
@@ -84,35 +145,54 @@
     }
 
     @media (max-width: 400px) {
+      .floating-heart {
+        font-size: 3rem;
+        top: -45px;
+      }
+
+      .photo-bg {
+        width: 180px;
+        height: 180px;
+      }
+
       h1 {
         font-size: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-      button {
-        font-size: 1rem;
-        padding: 0.65rem 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="container">
-    <h1>My love won’t resign, you’re always mine, will you be my Valentine? 💘</h1>
-    <div class="btn-container">
-      <button id="yesBtn">YES</button>
-      <button id="noBtn">NO</button>
+
+  <div class="wrapper">
+    <!-- HEART IS OUTSIDE CONTAINER -->
+    <div class="floating-heart">❤️</div>
+
+    <div class="container" id="container">
+      <div class="photo-bg"></div>
+
+      <h1>
+        Will you be my Valentine, forever and always?🤞💖
+      </h1>
+
+      <div class="btn-container">
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">NO</button>
+      </div>
+
+      <span class="hint">Better not click NO 😏</span>
     </div>
   </div>
 
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
-    const container = document.getElementById('container');
+
 
     const messages = [
       "Huwag naman",
       "Palihug 🥺",
       "Yamette!",
+      "Ha-ji ma!",
       "Mahal ko?",
       "🙄",
       "Labb??",
@@ -124,28 +204,16 @@
 
     let noHoverCount = 0;
 
-    // Move NO button randomly within the viewport
     function moveNoButtonRandomly() {
-      const btnRect = noBtn.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      const maxX = viewportWidth - btnRect.width;
-      const maxY = viewportHeight - btnRect.height;
-
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-
-      noBtn.style.position = 'fixed'; // switch to fixed after first hover
-      noBtn.style.left = randomX + 'px';
-      noBtn.style.top = randomY + 'px';
+      const rect = noBtn.getBoundingClientRect();
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = Math.random() * (window.innerWidth - rect.width) + 'px';
+      noBtn.style.top = Math.random() * (window.innerHeight - rect.height) + 'px';
     }
 
     noBtn.addEventListener('mouseenter', () => {
-      // Change text to next message and keep it
       noBtn.textContent = messages[noHoverCount % messages.length];
       noHoverCount++;
-
       moveNoButtonRandomly();
     });
 
@@ -162,23 +230,7 @@ For bookings and inquiries:
 Love is better when shared over good food ❤️
 </div>`;
     });
-
-    // Keep NO button inside viewport on resize
-    window.addEventListener('resize', () => {
-      const btnRect = noBtn.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      let left = parseInt(noBtn.style.left, 10) || 0;
-      let top = parseInt(noBtn.style.top, 10) || 0;
-
-      if (left + btnRect.width > viewportWidth) {
-        noBtn.style.left = (viewportWidth - btnRect.width) + 'px';
-      }
-      if (top + btnRect.height > viewportHeight) {
-        noBtn.style.top = (viewportHeight - btnRect.height) + 'px';
-      }
-    });
   </script>
+
 </body>
 </html>
