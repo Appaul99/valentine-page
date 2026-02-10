@@ -232,24 +232,31 @@ Love is better when shared over good food ❤️
     });
 
 
-    noBtn.addEventListener('touchstart', (e) => {
-  e.preventDefault(); // prevent first tap from also triggering click/scroll
+    // Mobile tap fix
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // prevent scrolling
   noBtn.textContent = messages[noHoverCount % messages.length];
   noHoverCount++;
 
-  // Use requestAnimationFrame to ensure smooth movement
+  // Move NO button safely on mobile
   requestAnimationFrame(() => {
     const rect = noBtn.getBoundingClientRect();
-    const padding = 20; // keep button inside screen edges
-    const maxX = window.innerWidth - rect.width - padding;
-    const maxY = window.innerHeight - rect.height - padding;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
-    noBtn.style.left = padding + Math.random() * maxX + 'px';
-    noBtn.style.top = padding + Math.random() * maxY + 'px';
-    noBtn.style.transform = 'none'; // reset any previous translate
-    noBtn.style.position = 'absolute'; // ensure consistent positioning
+    // keep the button fully inside viewport
+    const maxX = viewportWidth - rect.width;
+    const maxY = viewportHeight - rect.height;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = 'fixed'; // important: fixed relative to viewport
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+    noBtn.style.transform = 'none'; // reset previous translate
   });
-});
+})
   </script>
 
 </body>
