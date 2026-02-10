@@ -203,28 +203,31 @@
     ];
 
     let noHoverCount = 0;
-
     function moveNoButtonRandomly() {
-      const rect = noBtn.getBoundingClientRect();
-      noBtn.style.position = 'fixed';
-      noBtn.style.left = Math.random() * (window.innerWidth - rect.width) + 'px';
-      noBtn.style.top = Math.random() * (window.innerHeight - rect.height) + 'px';
-    }
+  const rect = noBtn.getBoundingClientRect();
+  const maxX = window.innerWidth - rect.width;
+  const maxY = window.innerHeight - rect.height;
 
-    // Desktop hover
-    noBtn.addEventListener('mouseenter', () => {
-      noBtn.textContent = messages[noHoverCount % messages.length];
-      noHoverCount++;
-      moveNoButtonRandomly();
-    });
+  noBtn.style.position = 'absolute'; // ABSOLUTE instead of fixed
+  noBtn.style.left = Math.random() * maxX + 'px';
+  noBtn.style.top = Math.random() * maxY + 'px';
+  noBtn.style.transform = 'none'; // reset transform for mobile touch
+}
 
-    // Mobile tap
-    noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // prevent first tap from also triggering click
-    noBtn.textContent = messages[noHoverCount % messages.length];
-    noHoverCount++;
-    moveNoButtonRandomly();
-    });
+// Desktop hover
+noBtn.addEventListener('mouseenter', () => {
+  noBtn.textContent = messages[noHoverCount % messages.length];
+  noHoverCount++;
+  moveNoButtonRandomly();
+});
+
+// Mobile tap
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // prevent scrolling
+  noBtn.textContent = messages[noHoverCount % messages.length];
+  noHoverCount++;
+  moveNoButtonRandomly();
+});
 
     yesBtn.addEventListener('click', () => {
       container.innerHTML = `<div class="love-message">I love you deeply, my Labb. See you soon! 💖</div><br><br><div class="love-message">Love is better when shared over good food ❤️
